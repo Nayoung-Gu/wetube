@@ -1,0 +1,25 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "video platform built with ES6, Express, Mongo, NodeJS",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nayoung-Gu/wetube.git"
+  },
+  "scripts": {
+    "dev": "nodemon --exec babel-node index.js"
+  },
+  "author": "Nayoung",
+  "bugs": {
+    "url": "https://github.com/Nayoung-Gu/wetube/issues"
+  },
+  "homepage": "https://github.com/Nayoung-Gu/wetube#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.5",
+    "@babel/preset-env": "^7.16.5"
+  }
+}
