@@ -7,7 +7,7 @@
     "url": "git+https://github.com/Nayoung-Gu/wetube.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node index.js"
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "author": "Nayoung",
   "bugs": {
@@ -16,6 +16,7 @@
   "homepage": "https://github.com/Nayoung-Gu/wetube#readme",
   "dependencies": {
     "express": "^4.17.2",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.15"
   },
   "devDependencies": {
