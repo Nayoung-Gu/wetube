@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Video from "../models/User";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 
@@ -20,12 +21,11 @@ export const postJoin = async (req, res) => {
         });
         return res.redirect("/login");
     } catch (error) {
-        return res.status(400),render("join", {
+        return res.status(400).render("join", {
             pageTitle: "Join",
             errorMessage: error._message,
         })
     }
-    return res.redirect("/login");
 };
 
 export const getEdit = (req, res) => {
@@ -156,4 +156,11 @@ export const postChangePassword = async (req, res, next) => {
     return res.redirect("/users/logout");
 }
 
-export const see = (req, res) => res.send("See User");
+export const see = async (req, res) => {
+    const {id} = req.params;
+    const user = await User.findById(id).populate("videos");
+    if(!user){
+        return res.status(400).render("404", {pageTitle: "User not found."});
+    }
+    return res.render("profile", {pageTitle: user.name, user})
+};
