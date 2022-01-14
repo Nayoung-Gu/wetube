@@ -6,7 +6,7 @@ module.exports = {
     watch: true,
     entry: "./src/client/js/main.js",
     plugins: [new MiniCssExtractPlugin({
-        filename: "css/styles.css",
+        filename: "scss/styles.css",
     })],
     output: {
         filename: "js/main.js",
