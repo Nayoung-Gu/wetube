@@ -21,7 +21,7 @@ export const postJoin = async (req, res) => {
         return res.redirect("/login");
     } catch (error) {
         return res.status(400).render("join", {
-            pageTitle: "Join",
+            pageTitle,
             errorMessage: error._message,
         })
     }
@@ -110,7 +110,7 @@ export const finishGithubLogin = async (req, res) => {
         }
         let user = await User.findOne({email: emailObj.email});
         if(!user){
-            const user = await User.create({
+            user = await User.create({
                 name: userData.name ? userData.name : "Unknown",
                 avatarUrl: userData.avatar_url,
                 username: userData.login,
