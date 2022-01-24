@@ -11,7 +11,6 @@ export const home = async (req, res) => {
 export const watch = async(req, res) => {
     const {id} = req.params;
     const video = await Video.findById(id).populate("owner");
-    console.log(video);
     if(!video){
         return res.render("404", {pageTitle: "Video not found."});
     }
@@ -117,4 +116,10 @@ export const registeriew = async (req, res) => {
     video.meta.views = video.meta.views + 1;
     await video.save();
     return res.sendStatus(200);
+};
+
+export const createComment = (req, res) => {
+    console.log(req.params);
+    console.log(req.body);
+    return res.end();
 }
