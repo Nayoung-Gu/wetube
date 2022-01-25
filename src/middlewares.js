@@ -7,6 +7,7 @@ export const localsMiddleware = (req, res, next) => {
     next();
 }
 
+// in case someone who are not logged in enters edit-profile
 export const protectorMiddleware = (req, res, next) => {
     if(req.session.loggedIn){
         next();
@@ -16,6 +17,7 @@ export const protectorMiddleware = (req, res, next) => {
     }
 }
 
+// to block people who already logged in (ex.login page)
 export const publicOnlyMiddleware = (req, res, next) => {
     if(!req.session.loggedIn){
         next();
