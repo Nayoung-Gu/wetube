@@ -12,11 +12,10 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
-  console.log(video);
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("videos/watch", { pageTitle: video.title, video });
 };
 
 export const getEdit = async (req, res) => {
@@ -31,7 +30,7 @@ export const getEdit = async (req, res) => {
   if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
   }
-  return res.render("edit", { pageTitle: `Edit ${video.title}`, video });
+  return res.render("videos/edit", { pageTitle: `Edit ${video.title}`, video });
 };
 
 export const postEdit = async (req, res) => {
@@ -57,7 +56,7 @@ export const postEdit = async (req, res) => {
 };
 
 export const getUpload = (req, res) => {
-  return res.render("upload", { pageTitle: "Upload Video" });
+  return res.render("videos/upload", { pageTitle: "Upload Video" });
 };
 
 export const postUpload = async (req, res) => {
@@ -66,7 +65,6 @@ export const postUpload = async (req, res) => {
   } = req.session;
   const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
-  const videos = await Video.find({});
   try {
     const newVideo = await Video.create({
       title,
@@ -77,13 +75,12 @@ export const postUpload = async (req, res) => {
       hashtags: Video.formatHashtags(hashtags),
     });
     const user = await User.findById(_id);
-    user.videos.push(newVideo._id);
+    user.videos.push(newVideo.owner);
     user.save();
-    return res.render("home", videos);
+    return res.redirect("/");
   } catch (error) {
-    return res.status(400).render("upload", {
+    return res.status(400).render("videos/upload", {
       pageTitle: "Upload Video",
-      errorMessage: error,
     });
   }
 };
@@ -115,7 +112,7 @@ export const search = async (req, res) => {
       },
     }).populate("owner");
   }
-  return res.render("search", { pageTitle: "Search", videos });
+  return res.render("videos/search", { pageTitle: "Search", videos });
 };
 
 export const registeriew = async (req, res) => {
